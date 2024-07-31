@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "522578711627",
+    "project_id": "your-place-v1",
+    "storage_bucket": "your-place-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522578711627:android:f3d3c1432aa90ccfc729ce",
+        "android_client_info": {
+          "package_name": "com.example.yourplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVjoiQ7-xD7a7iCQMzavzyQ5pnmOR2tEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
