@@ -40,6 +40,10 @@ dependencies:
   google_sign_in: ^6.2.1
   firebase_auth: ^5.1.2
   animated_text_kit: ^4.2.2
+  sign_in_button: ^3.0.0
+  button_animations: ^2.0.0+3
+  http: ^1.2.2
+  provider: ^6.1.2
 
 
 dev_dependencies:
@@ -68,6 +72,14 @@ flutter:
   assets:
     - assets/logos/googleLogo.png
     - assets/logos/logo.png
+    - assets/logos/kakao_login_medium_wide.png
+    - assets/logos/googleLogin.png
+    - assets/logos/kakaoLogin.png
+    - assets/style/disney.png
+    - assets/style/dongsoup.png
+    - assets/style/2D.png
+    - assets/style/3D.png
+    - assets/style/white.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

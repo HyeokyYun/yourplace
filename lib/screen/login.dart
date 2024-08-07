@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:yourplace/screen/select_style.dart';
 import 'package:yourplace/screen/user_info.dart';
 
 class Login extends StatefulWidget {
@@ -14,21 +15,31 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  _signInWithGoogle(context);
-                },
-                child: Text("Google")),
-            ElevatedButton(
-                onPressed: () {
+            Image.asset("assets/logos/logo.png"),
+            SizedBox(
+              height: screenSize.height * 0.2,
+            ),
+            GestureDetector(
+              onTap: () {
+                _signInWithGoogle(context);
+              },
+              child: Image.asset("assets/logos/googleLogin.png"),
+            ),
+            SizedBox(
+              height: screenSize.height * 0.03,
+            ),
+            GestureDetector(
+                onTap: () {
                   _loginWithKakao(context);
                 },
-                child: Text("KAKAO")),
+                child: Image.asset("assets/logos/kakaoLogin.png")),
           ],
         ),
       ),
