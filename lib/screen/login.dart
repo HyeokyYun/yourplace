@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'home.dart';
+import 'package:yourplace/screen/user_info.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
         print(value.user?.email);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => UserInfoPage()),
         );
       }).onError((error, stackTrace) {
         print("Error $error");
@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
       print('Login success: ${token.accessToken}');
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => UserInfoPage()),
       );
     } catch (e) {
       print('Login failed: $e');

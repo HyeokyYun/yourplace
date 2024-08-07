@@ -8,9 +8,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool _isButtonEnabled = false;
+  Color _buttonColor = Colors.grey;
+
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _isButtonEnabled = true;
+        _buttonColor = Colors.green;
+      });
+    });
     // _navigateToLogin();
   }
 
@@ -57,28 +66,32 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBox(height: screenSize.height * 0.05),
             ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              },
+              onPressed: _isButtonEnabled
+                  ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                    }
+                  : null,
               icon: const Icon(Icons.edit, color: Colors.white),
               label: const Text(
                 '시작하기',
                 style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green, // 배경 색상
+                backgroundColor: _buttonColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30), // 둥근 모서리
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenSize.height * 0.1,
-                    vertical: screenSize.width * 0.03), // 버튼 크기 조정
+                  horizontal: screenSize.height * 0.1,
+                  vertical: screenSize.width * 0.03,
+                ),
               ),
             ),
           ],
