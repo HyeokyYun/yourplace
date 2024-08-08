@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yourplace/screen/chat/chat_screen.dart';
 import 'package:yourplace/screen/user_info.dart';
@@ -9,6 +8,7 @@ class SelectStylePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Nickname: ${user}');
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -25,11 +25,12 @@ class SelectStylePage extends StatelessWidget {
                 SelectStyleButton(
                     title: "Diseny",
                     screenSize: screenSize,
-                    onTap: () {
+                    onTap: () async {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatScreen(user, 'Create')),
+                            builder: (context) =>
+                                ChatScreen(user, 'Create', 'Disney')),
                       );
                     },
                     imageAddr: "assets/style/disney.png"),
@@ -43,7 +44,8 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatScreen(user, 'Create')),
+                            builder: (context) =>
+                                ChatScreen(user, 'Create', 'DongSoup')),
                       );
                     },
                     imageAddr: "assets/style/dongsoup.png"),
@@ -57,7 +59,8 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatScreen(user, 'Create')),
+                            builder: (context) =>
+                                ChatScreen(user, 'Create', '2D')),
                       );
                     },
                     imageAddr: "assets/style/2D.png"),
@@ -71,7 +74,8 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatScreen(user, 'Create')),
+                            builder: (context) =>
+                                ChatScreen(user, 'Create', '3D')),
                       );
                     },
                     imageAddr: "assets/style/3D.png"),

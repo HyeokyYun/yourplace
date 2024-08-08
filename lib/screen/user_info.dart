@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:yourplace/screen/character_generate.dart';
 import 'dart:convert';
 
 import 'package:yourplace/screen/home.dart';
@@ -16,7 +16,7 @@ class UserInfoPage extends StatefulWidget {
 }
 
 class _UserInfoPageState extends State<UserInfoPage> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController controller2 = TextEditingController();
   String? dropdownValue;
 
@@ -44,104 +44,183 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Log in'),
+        title: const Text('유저 정보 입력'),
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         backgroundColor: Colors.white,
         centerTitle: true,
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-        actions: <Widget>[
-          IconButton(icon: const Icon(Icons.search), onPressed: () {})
-        ],
       ),
-      body: Center(
-        child: SizedBox(
-          width: screenSize.width * 0.7,
-          height: screenSize.width * 0.5,
-          child: Column(
-            children: [
-              Container(
-                width: screenSize.width * 0.7,
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: DropdownButtonFormField<String>(
-                  value: dropdownValue,
-                  hint: const Text('Select user'),
-                  icon: const Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    labelText: 'User',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Colors.green,
-                        width: 1.0,
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(
+            screenSize.width * 0.08,
+            screenSize.width * 0.05,
+            screenSize.width * 0.08,
+            screenSize.width * 0.1),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      screenSize.width * 0.08,
+                      screenSize.width * 0.05,
+                      screenSize.width * 0.08,
+                      screenSize.width * 0.1),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        controller: userNameController,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                          labelText: "닉네임을 입력하세요",
+                          labelStyle: TextStyle(fontSize: 18),
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.text,
                       ),
-                    ),
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
-                  items: userList.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ),
-              const SizedBox(
-                height: 40.0,
-              ),
-              ButtonTheme(
-                minWidth: screenSize.width * 0.7,
-                height: 50.0,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final response =
-                        await getUsers(controller.text, controller2.text);
-                    print(response);
-                    if (response != null &&
-                        response.contains(dropdownValue as Pattern)) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
-                    } else {
-                      String user = dropdownValue!;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SelectStylePage(user)),
-                      );
-                      showSnackBar(context, const Text('새 캐릭터 생성으로 이동합니다.'));
-                    }
-                  },
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  child: const Text(
-                    '로그인',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                      SizedBox(
+                        height: screenSize.height * 0.05,
+                      ),
+                      TextField(
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                          labelText: "미정",
+                          labelStyle: TextStyle(fontSize: 18),
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.05,
+                      ),
+                      TextField(
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                          labelText: "미정",
+                          labelStyle: TextStyle(fontSize: 18),
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              width: screenSize.width * 0.8,
+              height: screenSize.height * 0.05,
+              child: ElevatedButton(
+                child: Text(
+                  "캐릭터 생성",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, elevation: 2),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          SelectStylePage(userNameController.text)),
+                ),
+              ),
+            )
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () {
-          _showDialog(context);
-        },
-        heroTag: "actionButton",
-        backgroundColor: Colors.greenAccent,
-        child: const Icon(
-          Icons.person,
-          size: 50,
-        ),
-      ),
+      // body: Center(
+      //   child: SizedBox(
+      //     width: screenSize.width * 0.7,
+      //     height: screenSize.width * 0.5,
+      //     child: Column(
+      //       children: [
+      //         Container(
+      //           width: screenSize.width * 0.7,
+      //           padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      //           child: DropdownButtonFormField<String>(
+      //             value: dropdownValue,
+      //             hint: const Text('Select user'),
+      //             icon: const Icon(Icons.arrow_drop_down),
+      //             iconSize: 24,
+      //             elevation: 16,
+      //             style: const TextStyle(color: Colors.black),
+      //             decoration: InputDecoration(
+      //               labelText: 'User',
+      //               border: OutlineInputBorder(
+      //                 borderRadius: BorderRadius.circular(10.0),
+      //                 borderSide: const BorderSide(
+      //                   color: Colors.green,
+      //                   width: 1.0,
+      //                 ),
+      //               ),
+      //             ),
+      //             onChanged: (String? newValue) {
+      //               setState(() {
+      //                 dropdownValue = newValue!;
+      //               });
+      //             },
+      //             items: userList.map<DropdownMenuItem<String>>((String value) {
+      //               return DropdownMenuItem<String>(
+      //                 value: value,
+      //                 child: Text(value),
+      //               );
+      //             }).toList(),
+      //           ),
+      //         ),
+      //         const SizedBox(
+      //           height: 40.0,
+      //         ),
+      //         ButtonTheme(
+      //           minWidth: screenSize.width * 0.7,
+      //           height: 50.0,
+      //           child: ElevatedButton(
+      //             onPressed: () async {
+      //               final response =
+      //                   await getUsers(controller.text, controller2.text);
+      //               print(response);
+      //               if (response != null &&
+      //                   response.contains(dropdownValue as Pattern)) {
+      //                 Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(builder: (context) => HomeScreen()),
+      //                 );
+      //               } else {
+      //                 String user = dropdownValue!;
+      //                 Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(
+      //                       builder: (context) => SelectStylePage(user)),
+      //                 );
+      //                 showSnackBar(context, const Text('새 캐릭터 생성으로 이동합니다.'));
+      //               }
+      //             },
+      //             style:
+      //                 ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      //             child: const Text(
+      //               '로그인',
+      //               style: TextStyle(fontSize: 20, color: Colors.white),
+      //             ),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      // floatingActionButton: FloatingActionButton.large(
+      //   onPressed: () {
+      //     _showDialog(context);
+      //   },
+      //   heroTag: "actionButton",
+      //   backgroundColor: Colors.greenAccent,
+      //   child: const Icon(
+      //     Icons.person,
+      //     size: 50,
+      //   ),
+      // ),
     );
   }
 
@@ -151,7 +230,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('닉네임을 정해 주세요'),
         content: TextField(
-          controller: controller,
+          controller: userNameController,
           autofocus: true,
           decoration: const InputDecoration(labelText: 'Enter nickname'),
           keyboardType: TextInputType.text,
@@ -161,7 +240,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
               onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SelectStylePage(controller.text)),
+                        builder: (context) =>
+                            SelectStylePage(userNameController.text)),
                   ),
               child: const Text('결정')),
           ElevatedButton(

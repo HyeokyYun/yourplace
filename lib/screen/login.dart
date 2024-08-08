@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:yourplace/screen/select_style.dart';
 import 'package:yourplace/screen/user_info.dart';
 
 class Login extends StatefulWidget {
@@ -18,6 +17,12 @@ class _LoginState extends State<Login> {
     var screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("로그인"),
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
