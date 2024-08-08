@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:yourplace/screen/home.dart';
-import 'package:yourplace/screen/select_style.dart';
+import 'package:yourplace/screen/home/my_character.dart';
+import 'package:yourplace/screen/character/select_style.dart';
 
 List<String> userList = [];
 
@@ -85,7 +85,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       TextField(
                         autofocus: true,
                         decoration: const InputDecoration(
-                          labelText: "미정",
+                          labelText: "성별",
                           labelStyle: TextStyle(fontSize: 18),
                           border: OutlineInputBorder(),
                         ),
@@ -97,11 +97,19 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       TextField(
                         autofocus: true,
                         decoration: const InputDecoration(
-                          labelText: "미정",
+                          labelText: "나이",
                           labelStyle: TextStyle(fontSize: 18),
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.05,
+                      ),
+                      Image.asset(
+                        'assets/logos/logo.png',
+                        width: screenSize.width * 0.7, // 원하는 크기로 조정
+                        height: screenSize.height * 0.3, // 원하는 크기로 조정
                       ),
                     ],
                   ),
@@ -259,7 +267,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
 }
 
 Future<String?> getUsers(String userName, String password) async {
-  const String addr = "http://127.0.0.1:8000";
+// const String addr = "http://127.0.0.1:8000";
+  const String addr = "http://10.0.2.2:8000";
   const String router = "local_test";
 
   String url = '$addr/$router/users';

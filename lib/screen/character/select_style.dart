@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yourplace/screen/chat/chat_screen.dart';
-import 'package:yourplace/screen/user_info.dart';
+import 'package:yourplace/screen/character/user_info.dart';
 
 class SelectStylePage extends StatelessWidget {
   final String user;
@@ -13,6 +13,8 @@ class SelectStylePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text("스타일 선택"),
       ),
       body: Padding(
@@ -30,7 +32,7 @@ class SelectStylePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ChatScreen(user, 'Create', 'Disney')),
+                                ChatScreen(user, 'Create', '3D pixar style')),
                       );
                     },
                     imageAddr: "assets/style/disney.png"),
@@ -44,8 +46,8 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ChatScreen(user, 'Create', 'DongSoup')),
+                            builder: (context) => ChatScreen(
+                                user, 'Create', '3D Animal Crossing')),
                       );
                     },
                     imageAddr: "assets/style/dongsoup.png"),
@@ -60,7 +62,7 @@ class SelectStylePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ChatScreen(user, 'Create', '2D')),
+                                ChatScreen(user, 'Create', '2D Ghibli style')),
                       );
                     },
                     imageAddr: "assets/style/2D.png"),

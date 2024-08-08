@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:yourplace/controller/chat_list.dart';
 
 class ChatController extends ChangeNotifier {
-  late final TextEditingController textEditingController =
-      TextEditingController();
-  late final ScrollController scrollController = ScrollController();
-  late final FocusNode focusNode = FocusNode();
-
   bool get isTextFieldEnable => textEditingController.text.isNotEmpty;
   List<Chat> chatList = <Chat>[Chat(message: '너는 무슨 색을 좋아해?', sent: false)];
   List<String> answers = <String>[];
   var question = 0;
+
+  late final ScrollController scrollController = ScrollController();
+  late final TextEditingController textEditingController =
+      TextEditingController();
+  late final FocusNode focusNode = FocusNode();
 
   ChatController() {
     initializeChatList();
@@ -40,7 +40,9 @@ class ChatController extends ChangeNotifier {
       chatList.add(Chat(message: '너의 취미는 뭐야?', sent: false));
     } else if (question == 4) {
       for (Chat message in chatList) {
-        answers.add(message.message);
+        if (message.sent) {
+          answers.add(message.message);
+        }
       }
     }
 
