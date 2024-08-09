@@ -12,7 +12,9 @@ import 'package:yourplace/screen/login.dart';
 
 class SelectWriting extends StatefulWidget {
   final String imagePath;
-  const SelectWriting({required this.imagePath, super.key});
+  final String characterStyle;
+  const SelectWriting(
+      {required this.imagePath, required this.characterStyle, super.key});
 
   @override
   State<SelectWriting> createState() => _SelectWritingState();
@@ -37,49 +39,51 @@ class _SelectWritingState extends State<SelectWriting> {
           ),
         ],
       ),
-      body: Container(
-        width: screenSize.width,
-        decoration: const BoxDecoration(color: Colors.white),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              margin: const EdgeInsets.all(15),
-              child: const Text(
-                '어떤 글을 써볼까?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF292929),
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  height: 0,
+      body: SingleChildScrollView(
+        child: Container(
+          width: screenSize.width,
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(15),
+                child: const Text(
+                  '어떤 글을 써볼까?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF292929),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              height: 250,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: FileImage(File(widget.imagePath)),
-                  fit: BoxFit.cover,
+              Container(
+                margin: const EdgeInsets.all(15),
+                height: 250,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: FileImage(File(path)),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.circle,
                 ),
-                shape: BoxShape.circle,
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  writingButton(context, text: '동화 쓰러 가기', content: '동화'),
-                  writingButton(context, text: '일기 쓰러 가기', content: '일기'),
-                  writingButton(context, text: '수필 쓰러 가기', content: '수필'),
-                ],
+              Container(
+                margin: const EdgeInsets.all(15),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    writingButton(context, text: '동화 쓰러 가기', content: '동화'),
+                    writingButton(context, text: '일기 쓰러 가기', content: '일기'),
+                    writingButton(context, text: '수필 쓰러 가기', content: '수필'),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -113,13 +117,13 @@ class _SelectWritingState extends State<SelectWriting> {
     String user = context.watch<UserProvider>().user;
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
+        Navigator.of(context).push(MaterialPageRoute(
             // builder: (BuildContext context) => const ChatScreenPage(),
-            builder: (BuildContext context) =>
-                ChatScreen(user, 'Fairytale', 'Disney'),
-          ),
-        );
+            builder: (BuildContext context) => ChatScreen(
+                  user: user,
+                  kind: 'Fairytale',
+                  characterStyle: widget.characterStyle,
+                )));
       },
       child: Container(
         margin: const EdgeInsets.all(10),

@@ -31,8 +31,10 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ChatScreen(user, 'Create', '3D pixar style')),
+                            builder: (context) => ChatScreen(
+                                user: user,
+                                kind: 'Create',
+                                characterStyle: '3D pixar style')),
                       );
                     },
                     imageAddr: "assets/style/disney.png"),
@@ -47,7 +49,9 @@ class SelectStylePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ChatScreen(
-                                user, 'Create', '3D Animal Crossing')),
+                                user: user,
+                                kind: 'Create',
+                                characterStyle: '3D Animal Crossing')),
                       );
                     },
                     imageAddr: "assets/style/dongsoup.png"),
@@ -61,8 +65,10 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ChatScreen(user, 'Create', '2D Ghibli style')),
+                            builder: (context) => ChatScreen(
+                                user: user,
+                                kind: 'Create',
+                                characterStyle: '2D Ghibli style')),
                       );
                     },
                     imageAddr: "assets/style/2D.png"),
@@ -76,8 +82,10 @@ class SelectStylePage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ChatScreen(user, 'Create', '3D')),
+                            builder: (context) => ChatScreen(
+                                user: user,
+                                kind: 'Create',
+                                characterStyle: '3D')),
                       );
                     },
                     imageAddr: "assets/style/3D.png"),

@@ -5,8 +5,9 @@ import 'package:yourplace/screen/home/writing_generate.dart';
 
 class MyHomePage extends StatefulWidget {
   final String imagePath;
-
-  const MyHomePage({super.key, required this.imagePath});
+  final String characterStyle;
+  const MyHomePage(
+      {super.key, required this.imagePath, required this.characterStyle});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -21,7 +22,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _navIndex = [
       MyCharacterPage(imagePath: widget.imagePath),
-      SelectWriting(imagePath: widget.imagePath),
+      SelectWriting(
+          imagePath: widget.imagePath, characterStyle: widget.characterStyle),
       MyPage(),
     ];
   }
