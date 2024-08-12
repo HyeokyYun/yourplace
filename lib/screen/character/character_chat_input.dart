@@ -32,7 +32,7 @@ class _CharacterChatInputState extends State<CharacterChatInput> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+      padding: const EdgeInsets.fromLTRB(12.0, 0, 12, 0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -40,95 +40,109 @@ class _CharacterChatInputState extends State<CharacterChatInput> {
             selector: (context, controller) => controller.question,
             builder: (context, question, child) {
               if (question == 4) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      widget.setLoading(true);
-                      final chatController = context.read<ChatController>();
-                      final answers = chatController.answers;
-                      final style = widget.characterStyle;
-                      final response =
-                          await _generateCharacter(widget.user, answers, style);
-                      widget.setLoading(false);
-                      if (response != null) {
-                        final characterResponse =
-                            await _getCharacter(widget.user);
-                        final characterResponseJson =
-                            jsonDecode(characterResponse!);
-                        final imagePath = await _saveImageToLocal(
-                            characterResponseJson['image']);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyHomePage(
+                return ElevatedButton(
+                  onPressed: () async {
+                    widget.setLoading(true);
+                    final chatController = context.read<ChatController>();
+                    final answers = chatController.answers;
+                    const style = '';
+                    final response =
+                        await _generateCharacter(widget.user, answers, style);
+                    widget.setLoading(false);
+                    if (response != null) {
+                      final characterResponse =
+                          await _getCharacter(widget.user);
+                      final characterResponseJson =
+                          jsonDecode(characterResponse!);
+                      final imagePath = await _saveImageToLocal(
+                          characterResponseJson['image']);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyHomePage(
                                   imagePath: imagePath,
-                                  characterStyle: widget.characterStyle)),
-                        );
-                      } else {
-                        // Handle error
-                      }
-                    },
-                    child: Text(
-                      "캐릭터 생성",
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        elevation: 2,
-                        minimumSize: Size(80, 50)),
+                                  characterStyle: widget.characterStyle,
+                                )),
+                      );
+                    } else {
+                      // Handle error
+                    }
+                  },
+                  child: Text(
+                    "캐릭터 생성",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      elevation: 2,
+                      minimumSize: Size(80, 50)),
                 );
               }
               return Container();
             },
           ),
-          Stack(
-            children: [
-              Selector<ChatController, bool>(
-                selector: (context, controller) => controller.question != 4,
-                builder: (context, isEnabled, child) {
-                  return TextField(
-                    focusNode: context.read<ChatController>().focusNode,
-                    onChanged: context.read<ChatController>().onFieldChanged,
-                    controller:
-                        context.read<ChatController>().textEditingController,
-                    maxLines: null,
-                    textAlignVertical: TextAlignVertical.top,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(
-                        right: 42,
-                        left: 16,
-                        top: 18,
-                      ),
-                      hintText: '작성하기',
-                      enabled: isEnabled,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              // custom suffix btn
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.send,
+          SafeArea(
+            bottom: true,
+            child: Container(
+              margin: EdgeInsets.all(12),
+              constraints: const BoxConstraints(minHeight: 48),
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Color(0xFFE5E5EA),
                   ),
-                  onPressed: context.read<ChatController>().onFieldSubmitted,
                 ),
               ),
-            ],
+              child: Stack(
+                children: [
+                  Selector<ChatController, bool>(
+                    selector: (context, controller) => controller.question != 4,
+                    builder: (context, isEnabled, child) {
+                      return TextField(
+                        focusNode: context.read<ChatController>().focusNode,
+                        onChanged:
+                            context.read<ChatController>().onFieldChanged,
+                        controller: context
+                            .read<ChatController>()
+                            .textEditingController,
+                        maxLines: null,
+                        textAlignVertical: TextAlignVertical.top,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.only(
+                            right: 42,
+                            left: 16,
+                          ),
+                          hintText: '작성하기',
+                          enabled: isEnabled,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  // custom suffix btn
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed:
+                          context.read<ChatController>().onFieldSubmitted,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -136,12 +150,12 @@ class _CharacterChatInputState extends State<CharacterChatInput> {
   }
 
   Future<String?> _generateCharacter(
-      String name, List<String> answers, String characterStyle) async {
+      String name, List<String> answers, String style) async {
     String url = '${widget.addr}/${widget.router}/begin';
     final Map<String, dynamic> data = {
       'nickname': name,
       'answers': answers,
-      'style': characterStyle,
+      'style': style,
     };
 
     try {
@@ -188,6 +202,8 @@ class _CharacterChatInputState extends State<CharacterChatInput> {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/character_image.png';
     context.read<CharacterImagePathProvider>().changePath(filePath);
+    // const directory = 'assets/images';
+    // const filePath = '$directory/character_image.png';
     final file = File(filePath);
     await file.writeAsBytes(bytes);
     return filePath;
